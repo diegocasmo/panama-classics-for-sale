@@ -22,7 +22,7 @@ fs.readdirSync(routesPath).forEach(function(file) {
   }
 })
 
-// Initialize API on specified port and ip address
+// Initialize API on the specified port and ip address
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 api.listen(port, ipaddress, function(err) {
