@@ -1,9 +1,7 @@
-var olxController       = require('../controllers/olx'),
-    encuentraController = require('../controllers/encuentra');
+var carsController = require('../controllers/cars');
 
 function apiRoutes(api) {
-  api.get('/olx', olxController.get);
-  api.get('/encuentra', encuentraController.get);
+  api.get('/cars', carsController.get);
 }
 
 module.exports = apiRoutes;

@@ -31,16 +31,14 @@ require([
   'routers/app_router',
   'views/app_view',
   'collections/cars',
-  'config/config',
   'foundation'
-], function ($, Backbone, AppRouter, AppView, Cars, config) {
+], function ($, Backbone, AppRouter, AppView, Cars) {
 
   $(document).foundation();
 
   var appRouter = new AppRouter({
-    appView      : new AppView(),
-    encuentraCars: new Cars({ routePath: config.encuentraRoutePath }),
-    olxCars      : new Cars({ routePath: config.olxRoutePath })
+    appView: new AppView(),
+    cars   : new Cars()
   });
 
   appRouter.startApplication();

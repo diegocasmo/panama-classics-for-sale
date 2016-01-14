@@ -5,11 +5,12 @@ define([
   'underscore',
   'backbone',
   'views/base_view',
-  'views/shared/navigation_view',
   'views/car/cars_list_view',
+  'views/shared/navigation_view',
+  'views/shared/error_view',
   'lang/es_locale'
-], function($, _, Backbone, BaseView, NavigationView,
-            CarsListView, esLocale) {
+], function($, _, Backbone, BaseView, CarsListView, NavigationView,
+          ErrorView, esLocale) {
 
   'use strict';
 
@@ -19,46 +20,24 @@ define([
 
     template: _.template(
       '<div id="navigation-view"></div>' +
-      '<div id="encuentra-list-view">' +
-        '<img class="ajax-loader" src="img/ajax_loader.gif"/>' +
-        '<p class="home-page--searching"><%= searchingEncuentra %></p>' +
-      '</div>' +
-      '<div id="olx-list-view">' +
-        '<img class="ajax-loader" src="img/ajax_loader.gif"/>' +
-        '<p class="home-page--searching"><%= searchingOlx %></p>' +
+      '<div id="car-list-view">' +
+        '<div class="loader"></div>' +
+        '<p class="home-page--searching"><%= searching %></p>' +
       '</div>'
     ),
 
     initialize: function(options) {
-      this.encuentraCars = options.encuentraCars;
-      this.olxCars       = options.olxCars;
+      this.cars = options.cars;
     },
 
     render: function() {
-      var context = {
-        searchingEncuentra: esLocale.home.searchingEncuentra,
-        searchingOlx: esLocale.home.searchingOlx,
-      };
-      this.$el.html(this.template(context));
+      this.$el.html(this.template(esLocale.home));
       this.renderNavigationView();
-
-      // Move
-      this.bindCollectionEvents({
-        collection: this.encuentraCars,
-        $el: this.$el.find('#encuentra-list-view')
-      });
-      this.bindCollectionEvents({
-        collection: this.olxCars,
-        $el: this.$el.find('#olx-list-view')
-      });
-      this.olxCars.fetch();
-      this.encuentraCars.fetch();
-      // Move
-
+      this.bindCarsEvents();
+      this.cars.fetchIfNotCached();
       return this;
     },
 
-    // Renders navigation view
     renderNavigationView: function() {
       var navigationView = new NavigationView();
       this.subViews.push(navigationView);
@@ -66,22 +45,24 @@ define([
         .html(navigationView.render().el);
     },
 
-    bindCollectionEvents: function(options) {
-      var collection = options.collection,
-          $el        = options.$el,
-          that       = this;
-      collection.on('sync', function(collection) {
-        that.renderCarsListView($el, collection.toJSON());
-      });
-      collection.on('error', function() {
-        console.log('render error');
-      });
+    bindCarsEvents: function() {
+      this.cars.on('sync', _.bind(this.renderCarsListView, this));
+      this.cars.on('error', _.bind(this.renderErrorView, this));
     },
 
-    renderCarsListView: function($el, cars) {
-      var carsListView = new CarsListView({ cars: cars });
+    renderCarsListView: function() {
+      var carsListView = new CarsListView({
+        cars: this.cars.toJSON()
+      });
       this.subViews.push(carsListView);
-      $el.html(carsListView.render().el);
+      this.$el.find('#car-list-view').html(carsListView.render().el);
+    },
+
+    renderErrorView: function() {
+      var errorView = new ErrorView();
+      this.subViews.push(errorView);
+      this.$el.find('#car-list-view')
+        .html(errorView.render(esLocale.home.onErrorMessage).el);
     }
 
   });

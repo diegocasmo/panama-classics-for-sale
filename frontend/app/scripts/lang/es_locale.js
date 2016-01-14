@@ -3,12 +3,13 @@
 define({
   navigation: {
     title: 'Panamá Clásicos',
-    home: 'Inicio',
+    cars: 'Carros',
     about: 'Nosotros'
   },
   home: {
-    searchingEncuentra: 'Cargando resultados de Encuentra24...',
-    searchingOlx: 'Cargando resultados de OLX...'
+    searching: 'Buscando carros clásicos en Panamá...',
+    onErrorMessage: '<p>Huh! :(. No hemos podido encontrar carros clásicos en Panamá. ' +
+                    'El único hombre que no se equivoca es el que nunca hace nada. - Goethe</p>'
   },
   about: {
     aboutText: 'Panamá Clásicos es una aplicación sin fines de lucro ' +

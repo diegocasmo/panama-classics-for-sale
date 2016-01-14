@@ -19,7 +19,7 @@ define([
         '<h1 class="navigation-title"><%= title %></h1>' +
         '<ul class="navigation-list">' +
           '<li class="navigation-item">' +
-            '<a class="navigation-link" href="#inicio"><%= home %></a>' +
+            '<a class="navigation-link" href="#carros"><%= cars %></a>' +
           '</li>' +
           '<li class="navigation-item">' +
             '<a class="navigation-link" href="#nosotros"><%= about %></a>' +
@@ -28,7 +28,7 @@ define([
       '<div>'
     ),
 
-    render: function(context) {
+    render: function() {
       this.$el.html(this.template(esLocale.navigation));
       return this;
     }

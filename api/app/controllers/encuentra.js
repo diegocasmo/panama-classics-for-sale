@@ -1,15 +1,18 @@
-// Handle requests made to 'api/v1/encuentra' endpoint
-var restify         = require('restify'),
+// Handles 'Encuentra24' data site parsing
+var Promise         = require('promise'),
     encuentraConfig = require('../config/encuentra'),
     request         = require('request'),
-    parser          = require('../utils/parser');
+    encuentraParser = require('../parsers/encuentra_parser');
 
 // Return all parsed items from 'Encuentra24' parse URL
-exports.get = function(req, res, next) {
-  request(encuentraConfig.parseUrl(), function(error, response, html) {
-    if(error) {
-      next(new restify.InvalidArgumentError('Invalid Request'));
-    }
-    res.json(parser.encuentra(html));
+exports.get = function() {
+  return new Promise(function (resolve, reject) {
+    request(encuentraConfig.parseUrl(), function(error, response, html) {
+      if(error)  {
+        reject(error);
+      } else {
+        resolve(encuentraParser.parse(html));
+      }
+    });
   });
 }
