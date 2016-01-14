@@ -1,0 +1,51 @@
+.navigation-view {
+  max-width: $max_width;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 9999;
+}
+
+.navigation-wrapper {
+  background: $light_green;
+  height: 120px;
+}
+
+.navigation-title {
+  text-align: center;
+  line-height: 80px;
+  margin: 0px;
+  color: $lighter_gray;
+}
+
+.navigation-list {
+  display: block;
+  list-style: none;
+  text-align: center;
+}
+
+.navigation-item {
+  @include _inline-block;
+  margin: 0px 15px 0px 0px;
+  &:last-child {
+    margin: 0px;
+  }
+}
+
+.navigation-link {
+  font-family: $nunito;
+  text-transform: uppercase;
+  color: $lighter_gray;
+  &:hover, &:active, &:focus {
+    color: $lighter_gray;
+  }
+}
+
+.no-touch {
+  .navigation-link {
+    &:hover, &:active, &:focus {
+      color: $dark_gray;
+    }
+  }
+}

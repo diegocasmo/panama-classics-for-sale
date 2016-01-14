@@ -1,11 +1,13 @@
 html, body {
   font-family: $nunito;
+  background: $dark_gray;
+  color: $dark_black;
+  @include _font-size(1.2);
   font-weight: normal;
   width: 100%;
   height: 100%;
   min-width: 100%;
   min-height: 100%;
-  background: #fafafa;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -17,7 +19,6 @@ h1, h2, h3, h4, h5, h6 {
 p, a, button, span, input {
   @include _antialiasing;
   @include _no-outline;
-  font-family: $nunito;
   font-weight: normal;
 }
 
@@ -25,19 +26,8 @@ p, a, button, span, input {
   position: relative;
   min-width: $min_width;
   max-width: $max_width;
+  background: $lighter_gray;
   min-height: 100%;
   margin: 0px auto;
-  padding: 10px;
-}
-
-.display-block {
-  display: block;
-}
-
-.display-inline {
-  @include _inline-block;
-}
-
-.display-none {
-  display: none;
+  padding: $top_padding 20px 20px;
 }

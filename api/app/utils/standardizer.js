@@ -8,6 +8,7 @@ exports.do = function(options) {
     price: options.price ? _.trim('$' + options.price) : 'Sin precio',
     sold : options.sold  ? 'Vendido' : 'Sin vender',
     image: options.image ? _.trim(options.image) : 'http://placehold.it/300x200?text=Sin+Imagen',
-    link : options.link  ? _.trim(options.link) : false
+    link : options.link  ? _.trim(options.link) : false,
+    app  : options.app   ? _.trim(options.app) : false
   }
 }

@@ -13,7 +13,8 @@ exports.olx = function(response) {
             price: item.price ? item.price.amount : false,
             sold : item.sold,
             image: item.fullImage,
-            link : item.slug
+            link : item.slug,
+            app  : olxConfig.app()
           };
           return standardizer.do(options);
         });
@@ -30,7 +31,9 @@ exports.encuentra = function(html) {
                   price: ($item.find('.ann-price-2nd').text()).replace('B/.', ''),
                   sold : ($item.css('opacity')) ? true : false,
                   image: $item.find('.lazy').attr('data-original') ? ($item.find('.lazy').attr('data-original')).replace('/small','') : null,
-                  link : encuentraConfig.baseUrl() + $item.find('.ann-box-title').attr('href')
+                  link : encuentraConfig.baseUrl() + $item.find('.ann-box-title').attr('href'),
+                  app  : encuentraConfig.app()
+
                 };
             return standardizer.do(options);
           }).get();

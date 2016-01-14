@@ -1,12 +1,15 @@
+// Renders application home page view components
 /*global define*/
 define([
   'jquery',
   'underscore',
   'backbone',
   'views/base_view',
+  'views/shared/navigation_view',
   'views/car/cars_list_view',
   'lang/es_locale'
-], function($, _, Backbone, BaseView, CarsListView, esLocale) {
+], function($, _, Backbone, BaseView, NavigationView,
+            CarsListView, esLocale) {
 
   'use strict';
 
@@ -15,14 +18,13 @@ define([
     className: 'home-page',
 
     template: _.template(
+      '<div id="navigation-view"></div>' +
       '<div id="encuentra-list-view">' +
-        '<img class="ajax-loader display-block"' +
-          'src="img/ajax_loader.gif"/>' +
+        '<img class="ajax-loader" src="img/ajax_loader.gif"/>' +
         '<p class="home-page--searching"><%= searchingEncuentra %></p>' +
       '</div>' +
       '<div id="olx-list-view">' +
-        '<img class="ajax-loader display-block"' +
-          'src="img/ajax_loader.gif"/>' +
+        '<img class="ajax-loader" src="img/ajax_loader.gif"/>' +
         '<p class="home-page--searching"><%= searchingOlx %></p>' +
       '</div>'
     ),
@@ -38,6 +40,7 @@ define([
         searchingOlx: esLocale.home.searchingOlx,
       };
       this.$el.html(this.template(context));
+      this.renderNavigationView();
 
       // Move
       this.bindCollectionEvents({
@@ -53,6 +56,14 @@ define([
       // Move
 
       return this;
+    },
+
+    // Renders navigation view
+    renderNavigationView: function() {
+      var navigationView = new NavigationView();
+      this.subViews.push(navigationView);
+      this.$el.find('#navigation-view')
+        .html(navigationView.render().el);
     },
 
     bindCollectionEvents: function(options) {

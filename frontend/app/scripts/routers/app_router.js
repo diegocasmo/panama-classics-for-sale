@@ -3,8 +3,9 @@
 define([
   'jquery',
   'backbone',
-  'views/layouts/home_layout_view'
-], function($, Backbone, HomeLayoutView) {
+  'views/layouts/home_layout_view',
+  'views/layouts/about_layout_view'
+], function($, Backbone, HomeLayoutView, AboutLayoutView) {
 
   'use strict';
 
@@ -24,8 +25,9 @@ define([
     },
 
     routes: {
-      ''          : 'showHome',
-      '*actions'  : 'showHome'
+      'inicio'  : 'showHome',
+      'nosotros': 'showAbout',
+      '*actions': 'showHome'
     },
 
     showHome: function() {
@@ -33,6 +35,10 @@ define([
         encuentraCars: this.encuentraCars,
         olxCars      : this.olxCars
       }));
+    },
+
+    showAbout: function() {
+      this.appView.showView(new AboutLayoutView());
     }
 
   });

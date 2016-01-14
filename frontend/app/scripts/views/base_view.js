@@ -18,16 +18,6 @@ define([
         childView.remove();
       });
       this.remove();
-    },
-
-    showComponent: function($el) {
-      $el.removeClass('display-none')
-         .addClass('display-block');
-    },
-
-    hideComponent: function($el) {
-      $el.removeClass('display-block')
-         .addClass('display-none');
     }
 
   });

@@ -20,6 +20,13 @@ define([
 
     initialize: function(options) {
       this.routePath = options.routePath;
+    },
+
+    // Include company seller logo location
+    parse: function(items){
+      return _.each(items, function(item) {
+        item.companyLogo = 'img/' + item.app + '.png';
+      });
     }
 
   });
