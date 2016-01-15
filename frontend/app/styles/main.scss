@@ -9,14 +9,14 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 @import "variables/typography";
 @import "variables/colors";
 
+// Vendor
+@import "vendor/loaders";
+
 // Abstractions
 @import "abstractions/mixins";
 
 // Base
 @import "base/base";
-
-// Elements
-@import "elements/ajax_loader";
 
 // Layouts
 @import "layouts/home";

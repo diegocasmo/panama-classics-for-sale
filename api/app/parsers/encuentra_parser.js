@@ -1,27 +1,10 @@
-// Parse response from the scrapped end points
+// Parse response from the specified site
 var cheerio         = require('cheerio'),
-    standardizer    = require('./standardizer'),
-    olxConfig       = require('../config/olx'),
+    standardizer    = require('../utils/standardizer'),
     encuentraConfig = require('../config/encuentra');
 
-// Parser for 'OLX' response
-exports.olx = function(response) {
-  var list = JSON.parse(response.body).data;
-  return list.map(function(item) {
-          var options = {
-            title: item.title,
-            price: item.price ? item.price.amount : false,
-            sold : item.sold,
-            image: item.fullImage,
-            link : item.slug,
-            app  : olxConfig.app()
-          };
-          return standardizer.do(options);
-        });
-}
-
 // Parser for 'Encuentra24' response
-exports.encuentra = function(html) {
+exports.parse = function(html) {
   var $ = cheerio.load(JSON.parse(html).listing),
       $list = $('article.ann-box-teaser');
   return $list.map(function() {

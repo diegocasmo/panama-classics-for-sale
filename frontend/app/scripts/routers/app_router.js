@@ -12,9 +12,8 @@ define([
   var AppRouter = Backbone.Router.extend({
 
     initialize: function(options) {
-      this.appView       = options.appView;
-      this.encuentraCars = options.encuentraCars;
-      this.olxCars       = options.olxCars;
+      this.appView = options.appView;
+      this.cars    = options.cars;
     },
 
     startApplication: function() {
@@ -25,15 +24,14 @@ define([
     },
 
     routes: {
-      'inicio'  : 'showHome',
+      'carros'  : 'showCars',
       'nosotros': 'showAbout',
-      '*actions': 'showHome'
+      '*actions': 'showCars'
     },
 
-    showHome: function() {
+    showCars: function() {
       this.appView.showView(new HomeLayoutView({
-        encuentraCars: this.encuentraCars,
-        olxCars      : this.olxCars
+        cars: this.cars
       }));
     },
 

@@ -1,3 +1,4 @@
+// Main application view
 /*global define*/
 define([
   'jquery',
@@ -14,6 +15,7 @@ define([
     _currentView: null,
 
     showView: function(nextView) {
+      window.scrollTo(0, 0);
       if(this._currentView) {
         this._currentView._removeChildViews();
       }

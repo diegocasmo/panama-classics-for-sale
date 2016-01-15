@@ -1,15 +1,18 @@
-// Handle requests made to 'api/v1/olx' endpoint
-var restify   = require('restify'),
+// Handles 'olx' site data parsing
+var Promise   = require('promise'),
     olxConfig = require('../config/olx'),
     request   = require('request'),
-    parser    = require('../utils/parser');
+    olxParser = require('../parsers/olx_parser');
 
 // Return all parsed items from 'OLX' parse URL
-exports.get = function(req, res, next) {
-  request(olxConfig.parseUrl(), function(error, response, html) {
-    if(error) {
-      next(new restify.InvalidArgumentError('Invalid Request'));
-    }
-    res.json(parser.olx(response));
+exports.get = function() {
+  return new Promise(function (resolve, reject) {
+    request(olxConfig.parseUrl(), function(error, response, html) {
+      if(error) {
+        reject(error);
+      } else {
+        resolve(olxParser.parse(response));
+      }
+    });
   });
 }
