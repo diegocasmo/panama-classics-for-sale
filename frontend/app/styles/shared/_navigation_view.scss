@@ -11,26 +11,60 @@
 .navigation-wrapper {
   background: $light_green;
   height: 120px;
+  position: relative;
 }
 
 .navigation-title {
+  font-size: 28px;
   text-align: center;
-  line-height: 80px;
+  line-height: 120px;
   margin: 0px;
   color: $lighter_gray;
+  @include _breakpoint(phablet) {
+    font-size: 36px;
+  }
+  @include _breakpoint(tablet) {
+    font-size: 2.75rem;
+  }
+}
+
+.navigation-scroll-top  {
+  font-size: 50px;
+  color: $lighter_gray;
+  position: absolute;
+  top: 35px;
+  left: 0px;
+  cursor: pointer;
+  padding: 10px;
+  @include _breakpoint(phablet) {
+    font-size: 60px;
+    top: 33px;
+    left: 10px;
+  }
 }
 
 .navigation-list {
   display: block;
   list-style: none;
   text-align: center;
+  margin: -40px 0px 0px;
+  @include _breakpoint(tablet) {
+    margin: -35px 0px 0px;
+  }
 }
 
 .navigation-item {
   @include _inline-block;
+  font-size: 14px;
   margin: 0px 15px 0px 0px;
   &:last-child {
     margin: 0px;
+  }
+  @include _breakpoint(phablet) {
+    font-size: 16px;
+  }
+  @include _breakpoint(tablet) {
+    font-size: 18px;
   }
 }
 
@@ -44,7 +78,7 @@
 }
 
 .no-touch {
-  .navigation-link {
+  .navigation-link, .navigation-scroll-top {
     &:hover, &:active, &:focus {
       color: $dark_gray;
     }

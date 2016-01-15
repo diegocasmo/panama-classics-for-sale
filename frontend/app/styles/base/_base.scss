@@ -29,5 +29,16 @@ p, a, button, span, input {
   background: $lighter_gray;
   min-height: 100%;
   margin: 0px auto;
-  padding: $top_padding 20px 20px;
+  padding: $top_padding 10px 10px;
+  @include _breakpoint(phablet) {
+    padding: $top_padding 20px 20px;
+  }
+}
+
+.display-none {
+  display: none;
+}
+
+.display-block {
+  display: block;
 }
