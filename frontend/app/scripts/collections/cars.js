@@ -15,6 +15,11 @@ define([
 
     url: 'http://api-clasicos.rhcloud.com/api/v1/cars',
 
+    // Order by descending created at
+    comparator: function(a, b) {
+      return new Date(b.get('createdAt')) - new Date(a.get('createdAt'));
+    },
+
     // Determines if app should be synced with API
     _isCached: false,
 
@@ -42,8 +47,7 @@ define([
       });
     },
 
-    // Caches collection sync for a particular
-    // time interval
+    // Caches collection sync for a particular time interval
     _cacheFetch: function() {
       this._isCached = true;
       var that = this;
