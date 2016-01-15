@@ -26,6 +26,8 @@
 
 .car-image {
   @include _border-radius(100%);
+  background-image: -webkit-linear-gradient(315deg, $light_green, $light_gray);
+  background-image: linear-gradient(135deg, $light_green, $light_gray);
   border: 1px solid $dark_gray;
   width: 280px;
   height: 280px;
