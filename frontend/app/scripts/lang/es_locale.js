@@ -8,8 +8,8 @@ define({
   },
   home: {
     searching: 'Buscando carros clásicos en Panamá...',
-    onErrorMessage: '<p>Huh! :(. No hemos podido encontrar carros clásicos en Panamá. ' +
-                    'El único hombre que no se equivoca es el que nunca hace nada. - Goethe</p>'
+    onErrorMessage: '¡Huh :(! Ha ocurrido un problema. Pero no te preocupes, ' +
+                    'estamos trabajando para solucionar este inconveniente.'
   },
   about: {
     aboutText: 'Panamá Clásicos es una aplicación sin fines de lucro ' +

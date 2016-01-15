@@ -16,6 +16,7 @@ define([
 
     template: _.template(
       '<div class="navigation-wrapper">' +
+        '<i class="navigation-scroll-top fa fa-sort-asc"></i>' +
         '<h1 class="navigation-title"><%= title %></h1>' +
         '<ul class="navigation-list">' +
           '<li class="navigation-item">' +
@@ -27,6 +28,10 @@ define([
         '</ul>' +
       '<div>'
     ),
+
+    events: {
+      'click .navigation-scroll-top': 'scrollToTop'
+    },
 
     render: function() {
       this.$el.html(this.template(esLocale.navigation));

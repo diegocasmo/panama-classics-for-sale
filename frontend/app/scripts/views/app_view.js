@@ -1,21 +1,23 @@
-// Main application view
+// Main application view. Handles what layout to
+// print as current page
 /*global define*/
 define([
   'jquery',
   'underscore',
-  'backbone'
-], function($, _, Backbone) {
+  'backbone',
+  'views/base_view'
+], function($, _, Backbone, BaseView) {
 
   'use strict';
 
-  var AppView = Backbone.View.extend({
+  var AppView = BaseView.extend({
 
     el: $('#app-wrapper'),
 
     _currentView: null,
 
     showView: function(nextView) {
-      window.scrollTo(0, 0);
+      this.scrollToTop();
       if(this._currentView) {
         this._currentView._removeChildViews();
       }

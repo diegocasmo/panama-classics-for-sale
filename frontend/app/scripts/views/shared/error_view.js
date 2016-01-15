@@ -14,11 +14,15 @@ define([
     className: 'error-view',
 
     template: _.template(
-      '<p><%= errorText %></p>'
+      '<p class="error-view-text"><%= errorText %></p>'
     ),
 
-    render: function(errorText) {
-      this.$el.html(this.template({ errorText: errorText }));
+    initialize: function(options) {
+      this.errorText = options.errorText;
+    },
+
+    render: function() {
+      this.$el.html(this.template({ errorText: this.errorText }));
       return this;
     }
 

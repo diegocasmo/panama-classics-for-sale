@@ -29,17 +29,17 @@ define([
     },
 
     renderNavigationView: function() {
-      var navigationView = new NavigationView();
-      this.subViews.push(navigationView);
-      this.$el.find('#navigation-view')
-        .html(navigationView.render().el);
+      this.renderSubView({
+        View: NavigationView,
+        $el : this.$el.find('#navigation-view')
+      });
     },
 
     renderAboutView: function() {
-      var aboutView = new AboutView();
-      this.subViews.push(aboutView);
-      this.$el.find('#about-view')
-        .html(aboutView.render().el);
+      this.renderSubView({
+        View: AboutView,
+        $el : this.$el.find('#about-view')
+      });
     }
 
   });
