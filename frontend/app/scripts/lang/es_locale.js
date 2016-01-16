@@ -1,6 +1,9 @@
 // Define UI strings used by application
 /*global define*/
 define({
+  cars: {
+    noResults: 'La búsqueda no ha coincidido con ningún carro.'
+  },
   navigation: {
     title: 'Panamá Clásicos',
     cars: 'Carros',
@@ -8,6 +11,7 @@ define({
   },
   home: {
     searching: 'Buscando carros clásicos en Panamá...',
+    searchPlaceholder: 'Busca un carro...',
     onErrorMessage: '¡Huh :(! Ha ocurrido un problema. Pero no te preocupes, ' +
                     'estamos trabajando para solucionar este inconveniente.'
   },
@@ -17,7 +21,7 @@ define({
                'El objetivo de Panamá Clásicos es poder brindar un espacio ' +
                'en dónde se pueda encontrar con facilidad oportunidades de ' +
                'adquisición de carros clásicos en Panamá. Si deseas colaborar ' +
-               'con el desarrollo esta aplicación lo puedes hacer a través de: ' +
+               'con el desarrollo de esta aplicación lo puedes hacer a través de: ' +
                '<a href="https://github.com/diegocasmo/panama-classics-for-sale" target="_blank" >https://github.com/diegocasmo/panama-classics-for-sale</a>.'
   }
 });
