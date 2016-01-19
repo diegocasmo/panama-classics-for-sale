@@ -1,12 +1,27 @@
-// Parse response from the specified site
-var cheerio         = require('cheerio'),
+// Parse response from 'Encuentra24'
+var Promise         = require('promise'),
+    request         = require('request'),
+    cheerio         = require('cheerio'),
     _               = require('lodash'),
     moment          = require('moment'),
     standardizer    = require('../utils/standardizer'),
-    encuentraConfig = require('../config/encuentra');
+    encuentraConfig = require('../config/encuentra_config');
+
+// Return all 'Encuentra24' parsed items from the desired URL
+exports.get = function(parseUrl) {
+  return new Promise(function (resolve, reject) {
+    request(parseUrl, function(error, response, html) {
+      if(error)  {
+        reject(error);
+      } else {
+        resolve(parseResponse(html));
+      }
+    });
+  });
+}
 
 // Parser for 'Encuentra24' response
-exports.parse = function(html) {
+function parseResponse(html) {
   var $ = cheerio.load(JSON.parse(html).listing),
       $list = $('article.ann-box-teaser');
   return $list.map(function() {

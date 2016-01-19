@@ -1,4 +1,4 @@
-var carsController = require('../controllers/cars');
+var carsController = require('../controllers/cars_controller');
 
 function apiRoutes(api) {
   api.get('/cars', carsController.get);
