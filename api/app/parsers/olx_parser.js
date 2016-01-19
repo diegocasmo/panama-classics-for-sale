@@ -1,9 +1,24 @@
-// Parse response from the specified site
-var standardizer = require('../utils/standardizer'),
-    olxConfig    = require('../config/olx');
+// Parse response from 'OLX'
+var Promise      = require('promise'),
+    request      = require('request'),
+    standardizer = require('../utils/standardizer'),
+    olxConfig    = require('../config/olx_config');
+
+// Return all 'OLX' parsed items from the desired URL
+exports.get = function(url) {
+  return new Promise(function (resolve, reject) {
+    request(url, function(error, response, html) {
+      if(error) {
+        reject(error);
+      } else {
+        resolve(parseResponse(response));
+      }
+    });
+  });
+}
 
 // Parser for 'OLX' response
-exports.parse = function(response) {
+function parseResponse(response) {
   var list = JSON.parse(response.body).data;
   return list.map(function(item) {
           var options = {
