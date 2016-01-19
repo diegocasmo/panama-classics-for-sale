@@ -10,6 +10,17 @@ define([
 
   var Car = Backbone.Model.extend({
 
+    initialize: function() {
+      this.cacheSearchString();
+    },
+
+    cacheSearchString: function() {
+      this.searchJSON = {
+        searchString: this.get('title'),
+        cid: this.cid
+      };
+    }
+
   });
 
   return Car;

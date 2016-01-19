@@ -4,8 +4,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'models/car'
-], function($, _, Backbone, Car) {
+  'models/car',
+  'services/search_in_list'
+], function($, _, Backbone, Car, SearchInList) {
 
   'use strict';
 
@@ -24,8 +25,8 @@ define([
     _isCached: false,
 
     // Determines how much time a particular sync
-    // is considered to be up–to–date
-    _cacheTimeInterval: 60000,
+    // is considered to be up–to–date (5 min)
+    _cacheTimeInterval: 300000,
 
     initialize: function() {
       this.on('sync', this._cacheFetch);
@@ -36,7 +37,7 @@ define([
       if (!this._isCached) {
         this.fetch();
       } else {
-        this.trigger('sync'); // Simulate API response
+        this.trigger('sync', this); // Simulate API response
       }
     },
 
@@ -45,6 +46,27 @@ define([
       return _.each(items, function(item) {
         item.companyLogo = 'img/' + item.app + '.png';
       });
+    },
+
+    // Search models in collection according to query
+    doSearch: function(query) {
+      if (query && query.length > 0) {
+        var list = this.map(function(m) { return m.searchJSON; }),
+            results = SearchInList.search(list, query);
+        if (results.length > 0) {
+          var that = this;
+          this.trigger('search:done', _.map(results, function(r) { return that.get(r); }));
+        } else {
+          this.trigger('search:empty', this);
+        }
+      } else {
+        this.clearSearch();
+      }
+    },
+
+    // Signal collection search has been cleared
+    clearSearch: function() {
+      this.trigger('search:clear', this);
     },
 
     // Caches collection sync for a particular time interval

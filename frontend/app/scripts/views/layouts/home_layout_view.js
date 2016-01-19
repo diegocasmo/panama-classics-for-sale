@@ -7,11 +7,12 @@ define([
   'views/base_view',
   'views/car/car_view',
   'views/shared/navigation_view',
-  'views/shared/error_view',
+  'views/shared/search_form_view',
+  'views/shared/message_view',
   'services/list_paginator',
   'lang/es_locale'
 ], function($, _, Backbone, BaseView, CarView, NavigationView,
-          ErrorView, ListPaginator, esLocale) {
+          SearchFormView, MessageView, ListPaginator, esLocale) {
 
   'use strict';
 
@@ -21,12 +22,14 @@ define([
 
     template: _.template(
       '<div id="navigation-view"></div>' +
+      '<div id="search-form-view"></div>' +
       '<ul id="car-list-view">' +
         '<div id="home-loading-wrapper">' +
           '<div class="loader"></div>' +
           '<p class="home-page-searching"><%= searching %></p>' +
         '</div>' +
-      '</ul>'
+      '</ul>' +
+      '<div id="message-view"></div>'
     ),
 
     // Unbind window scroll event before removing view
@@ -42,6 +45,7 @@ define([
     render: function() {
       this.$el.html(this.template(esLocale.home));
       this.renderNavigationView();
+      this.renderSearchFormView();
       this.bindCarsEvents();
       this.cars.fetchIfNotCached();
       return this;
@@ -54,15 +58,26 @@ define([
       });
     },
 
-    bindCarsEvents: function() {
-      this.cars.on('sync', _.bind(this.setUpPaginatedList, this));
-      this.cars.on('error', _.bind(this.renderErrorView, this));
+    renderSearchFormView: function() {
+      this.renderSubView({
+        View   : SearchFormView,
+        $el    : this.$el.find('#search-form-view'),
+        context: { collection: this.cars, placeholder: esLocale.home.searchPlaceholder }
+      });
     },
 
-    setUpPaginatedList: function() {
-      this.paginatedCars = new ListPaginator(
-        this.cars.map(function(m) { return m.attributes; }));
-      this.hideComponent(this.$el.find('#home-loading-wrapper'));
+    bindCarsEvents: function() {
+      this.cars.on('sync search:done search:clear', _.bind(this.setUpPaginatedList, this));
+      this.cars.on('error', _.bind(this.renderErrorView, this));
+      this.cars.on('search:empty', _.bind(this.renderNoResultsView, this));
+    },
+
+    setUpPaginatedList: function(collection) {
+      var list = collection.map(function(m) { return m.attributes; });
+      this.paginatedCars = new ListPaginator(list);
+      this.removeCarsList();
+      this.hideLoadingIndicator();
+      this.$el.find('#message-view').empty();
       this.renderCarsListView(this.paginatedCars.getFirstPage());
       $(window).on('scroll', _.bind(this.loadMore, this));
     },
@@ -85,11 +100,31 @@ define([
     },
 
     renderErrorView: function() {
+      this.removeCarsList();
+      this.hideLoadingIndicator();
       this.renderSubView({
-        View   : ErrorView,
-        $el    : this.$el.find('#car-list-view'),
-        context: { errorText: esLocale.home.onErrorMessage }
+        View   : MessageView,
+        $el    : this.$el.find('#message-view'),
+        context: { message: esLocale.home.onErrorMessage }
       });
+    },
+
+    renderNoResultsView: function() {
+      this.removeCarsList();
+      this.hideLoadingIndicator();
+      this.renderSubView({
+        View   : MessageView,
+        $el    : this.$el.find('#message-view'),
+        context: { message: esLocale.cars.noResults }
+      });
+    },
+
+    removeCarsList: function() {
+      this.$el.find('#car-list-view > li').remove();
+    },
+
+    hideLoadingIndicator: function() {
+      this.hideComponent(this.$el.find('#home-loading-wrapper'));
     }
 
   });

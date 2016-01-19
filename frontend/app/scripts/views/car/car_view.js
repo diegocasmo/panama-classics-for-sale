@@ -11,7 +11,7 @@ define([
 
   var CarView = BaseView.extend({
 
-    className: 'small-12 medium-8 columns small-centered medium-centered car-view',
+    className: 'small-12 medium-10 columns small-centered medium-centered car-view',
 
     tagName: 'li',
 

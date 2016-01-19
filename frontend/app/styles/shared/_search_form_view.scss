@@ -1,0 +1,38 @@
+.search-form-view {
+  position: relative;
+  margin: 0px 0px 20px;
+  width: 100%;
+  line-height: 0px;
+}
+
+.search-form-input {
+  @include _border-radius(4px);
+  border: 1px solid $dark_gray;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  @include _breakpoint(phablet) {
+    font-size: 18px;
+  }
+}
+
+.search-form-clear {
+  font-size: 20px;
+  color: $dark_gray;
+  position: absolute;
+  right: 0px;
+  padding: 0px 20px;
+  line-height: 40px;
+  cursor: pointer;
+  @include _breakpoint(tablet) {
+    line-height: 43px;
+  }
+}
+
+.no-touch {
+  .search-form-clear {
+    &:hover, &:active, &:focus {
+      color: $darkest_gray;
+    }
+  }
+}

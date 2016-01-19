@@ -16,7 +16,6 @@ define([
 
     template: _.template(
       '<div class="navigation-wrapper">' +
-        '<i class="navigation-scroll-top fa fa-sort-asc"></i>' +
         '<h1 class="navigation-title"><%= title %></h1>' +
         '<ul class="navigation-list">' +
           '<li class="navigation-item">' +
@@ -30,7 +29,7 @@ define([
     ),
 
     events: {
-      'click .navigation-scroll-top': 'scrollToTop'
+      'click .navigation-title': 'scrollToTop'
     },
 
     render: function() {
