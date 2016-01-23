@@ -4,6 +4,10 @@ define({
   cars: {
     noResults: 'La búsqueda no ha coincidido con ningún carro.'
   },
+  car: {
+    soldText: 'Vendido',
+    notSoldText: 'Sin Vender'
+  },
   navigation: {
     title: 'Panamá Clásicos',
     cars: 'Carros',

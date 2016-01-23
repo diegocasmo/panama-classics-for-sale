@@ -4,8 +4,9 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'views/base_view'
-], function($, _, Backbone, BaseView) {
+  'views/base_view',
+  'lang/es_locale'
+], function($, _, Backbone, BaseView, esLocale) {
 
   'use strict';
 
@@ -22,13 +23,17 @@ define([
         '<div class="car-details">' +
           '<h4 class="car-title"><%= title %></h4>' +
           '<h6 class="car-price"><%= price %></h6>' +
-          '<h6 class="car-sold"><%= sold %></h6>' +
+          '<% if (sold) { %>' +
+            '<h6 class="car-sold"><%= soldText %></h6>' +
+          '<% } else { %>' +
+            '<h6 class="car-sold"><%= notSoldText %></h6>' +
+          '<% } %>' +
         '</div>' +
       '</a>'
     ),
 
     render: function(context) {
-      this.$el.html(this.template(context));
+      this.$el.html(this.template(_.extend(context, esLocale.car)));
       return this;
     }
 
