@@ -21,26 +21,6 @@ define([
       return new Date(b.get('createdAt')) - new Date(a.get('createdAt'));
     },
 
-    // Determines if app should be synced with API
-    _isCached: false,
-
-    // Determines how much time a particular sync
-    // is considered to be up–to–date (5 min)
-    _cacheTimeInterval: 300000,
-
-    initialize: function() {
-      this.on('sync', this._cacheFetch);
-    },
-
-    // Fetch collection from API if it hasn't been cached yet
-    fetchIfNotCached: function() {
-      if (!this._isCached) {
-        this.fetch();
-      } else {
-        this.trigger('sync', this); // Simulate API response
-      }
-    },
-
     // Include company seller logo location
     parse: function(items){
       return _.each(items, function(item) {
@@ -67,15 +47,6 @@ define([
     // Signal collection search has been cleared
     clearSearch: function() {
       this.trigger('search:clear', this);
-    },
-
-    // Caches collection sync for a particular time interval
-    _cacheFetch: function() {
-      this._isCached = true;
-      var that = this;
-      window.setTimeout(function() {
-        that._isCached = false;
-      }, this._cacheTimeInterval);
     }
 
   });

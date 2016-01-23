@@ -47,7 +47,7 @@ define([
       this.renderNavigationView();
       this.renderSearchFormView();
       this.bindCarsEvents();
-      this.cars.fetchIfNotCached();
+      this.cars.fetch();
       return this;
     },
 
