@@ -21,10 +21,12 @@ define([
     },
 
     // Renders a particular view on the specified element
-    renderSubView: function(options) {
-      var view = new options.View(options.context);
-      this.subViews.push(view);
-      options.$el.html(view.render().el);
+    renderViews: function(views) {
+      var that = this;
+      _.each(views, function(view, selector) {
+        that.subViews.push(view);
+        that.$el.find(selector).html(view.render().el);
+      });
     },
 
     scrollToTop: function() {

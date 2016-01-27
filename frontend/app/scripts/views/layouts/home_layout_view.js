@@ -44,25 +44,16 @@ define([
 
     render: function() {
       this.$el.html(this.template(esLocale.home));
-      this.renderNavigationView();
-      this.renderSearchFormView();
+      this.renderSubViews();
       this.bindCarsEvents();
       this.cars.fetch();
       return this;
     },
 
-    renderNavigationView: function() {
-      this.renderSubView({
-        View: NavigationView,
-        $el : this.$el.find('#navigation-view')
-      });
-    },
-
-    renderSearchFormView: function() {
-      this.renderSubView({
-        View   : SearchFormView,
-        $el    : this.$el.find('#search-form-view'),
-        context: { collection: this.cars, placeholder: esLocale.home.searchPlaceholder }
+    renderSubViews: function() {
+      this.renderViews({
+        '#navigation-view' : new NavigationView(),
+        '#search-form-view': new SearchFormView({ collection: this.cars, placeholder: esLocale.home.searchPlaceholder })
       });
     },
 
@@ -102,20 +93,16 @@ define([
     renderErrorView: function() {
       this.removeCarsList();
       this.hideLoadingIndicator();
-      this.renderSubView({
-        View   : MessageView,
-        $el    : this.$el.find('#message-view'),
-        context: { message: esLocale.home.onErrorMessage }
+      this.renderViews({
+        '#message-view': new MessageView({ message: esLocale.home.onErrorMessage })
       });
     },
 
     renderNoResultsView: function() {
       this.removeCarsList();
       this.hideLoadingIndicator();
-      this.renderSubView({
-        View   : MessageView,
-        $el    : this.$el.find('#message-view'),
-        context: { message: esLocale.cars.noResults }
+      this.renderViews({
+        '#message-view': new MessageView({ message: esLocale.cars.noResults })
       });
     },
 

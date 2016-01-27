@@ -23,22 +23,14 @@ define([
 
     render: function() {
       this.$el.html(this.template());
-      this.renderNavigationView();
-      this.renderAboutView();
+      this.renderSubViews();
       return this;
     },
 
-    renderNavigationView: function() {
-      this.renderSubView({
-        View: NavigationView,
-        $el : this.$el.find('#navigation-view')
-      });
-    },
-
-    renderAboutView: function() {
-      this.renderSubView({
-        View: AboutView,
-        $el : this.$el.find('#about-view')
+    renderSubViews: function() {
+      this.renderViews({
+        '#navigation-view': new NavigationView(),
+        '#about-view'     : new AboutView()
       });
     }
 
