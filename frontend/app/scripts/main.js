@@ -27,18 +27,19 @@ require.config({
 
 require([
   'jquery',
-  'backbone',
   'routers/app_router',
   'views/app_view',
   'collections/cars',
+  'collections/communities',
   'foundation'
-], function ($, Backbone, AppRouter, AppView, Cars) {
+], function ($, AppRouter, AppView, Cars, Communities) {
 
   $(document).foundation();
 
   var appRouter = new AppRouter({
-    appView: new AppView(),
-    cars   : new Cars()
+    'appView'    : new AppView(),
+    'cars'       : new Cars(),
+    'communities': new Communities()
   });
 
   appRouter.startApplication();

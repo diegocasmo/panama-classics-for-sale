@@ -1,12 +1,9 @@
-// Main application view. Handles what layout to
-// print as current page
+// Main application view. Renders view passed to it
+// as current page
 /*global define*/
 define([
-  'jquery',
-  'underscore',
-  'backbone',
   'views/base_view'
-], function($, _, Backbone, BaseView) {
+], function(BaseView) {
 
   'use strict';
 

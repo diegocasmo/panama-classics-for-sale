@@ -11,6 +11,8 @@
   width: 100%;
   padding: 10px;
   font-size: 16px;
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),
+              0 2px 10px 0 rgba(0,0,0,0.12);
   @include _breakpoint(phablet) {
     font-size: 18px;
   }

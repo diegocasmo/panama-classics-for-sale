@@ -20,15 +20,6 @@ define([
       this.remove();
     },
 
-    // Renders a particular view on the specified element
-    renderViews: function(views) {
-      var that = this;
-      _.each(views, function(view, selector) {
-        that.subViews.push(view);
-        that.$el.find(selector).html(view.render().el);
-      });
-    },
-
     scrollToTop: function() {
       $('html,body').animate({ scrollTop: 0 }, 'slow');
     },

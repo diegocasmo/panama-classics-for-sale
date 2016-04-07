@@ -18,11 +18,9 @@ $fa-font-path: "../bower_components/font-awesome/fonts/";
 // Base
 @import "base/base";
 
-// Layouts
-@import "layouts/home";
-
 // Components
-@import "components/car_view";
+@import "components/car";
+@import "components/community";
 
 // Shared
 @import "shared/navigation_view";

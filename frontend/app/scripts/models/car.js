@@ -16,8 +16,8 @@ define([
 
     cacheSearchString: function() {
       this.searchJSON = {
-        searchString: this.get('title'),
-        cid: this.cid
+        'searchString': this.get('title'),
+        'cid': this.cid
       };
     }
 

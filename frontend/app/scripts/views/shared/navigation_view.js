@@ -1,12 +1,8 @@
 // Renders the navigation view
 /*global define*/
 define([
-  'jquery',
-  'underscore',
-  'backbone',
-  'views/base_view',
-  'lang/es_locale'
-], function($, _, Backbone, BaseView, esLocale) {
+  'views/base_view'
+], function(BaseView) {
 
   'use strict';
 
@@ -14,26 +10,26 @@ define([
 
     className: 'navigation-view row',
 
+    tagName: 'ul',
+
     template: _.template(
-      '<div class="navigation-wrapper">' +
-        '<h1 class="navigation-title"><%= title %></h1>' +
-        '<ul class="navigation-list">' +
-          '<li class="navigation-item">' +
-            '<a class="navigation-link" href="#carros"><%= cars %></a>' +
-          '</li>' +
-          '<li class="navigation-item">' +
-            '<a class="navigation-link" href="#nosotros"><%= about %></a>' +
-          '</li>' +
-        '</ul>' +
-      '<div>'
+      '<li class="navigation-item small-4">' +
+        '<span class="navigation-item-bubble">Carros</span>' +
+        '<a class="fa fa-car navigation-link" href="#carros"></a>' +
+      '</li>' +
+      '<li class="navigation-item small-4">' +
+        '<span class="navigation-item-bubble">Comunidades</span>' +
+        '<a class="fa fa-users navigation-link" href="#comunidades"></a>' +
+      '</li>' +
+      '<li class="navigation-item small-4">' +
+        '<span class="navigation-item-bubble">Nosotros</span>' +
+        '<a class="fa fa-info-circle navigation-link" href="#nosotros"></a>' +
+      '</li>'
     ),
 
-    events: {
-      'click .navigation-title': 'scrollToTop'
-    },
 
     render: function() {
-      this.$el.html(this.template(esLocale.navigation));
+      this.$el.html(this.template());
       return this;
     }
 
