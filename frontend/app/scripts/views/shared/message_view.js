@@ -1,11 +1,8 @@
 // Renders the specified message in DOM
 /*global define*/
 define([
-  'jquery',
-  'underscore',
-  'backbone',
   'views/base_view'
-], function($, _, Backbone, BaseView) {
+], function(BaseView) {
 
   'use strict';
 

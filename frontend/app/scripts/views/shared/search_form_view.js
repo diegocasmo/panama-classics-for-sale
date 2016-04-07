@@ -2,11 +2,8 @@
 // whitin a particular collection of items
 /*global define*/
 define([
-  'jquery',
-  'underscore',
-  'backbone',
   'views/base_view'
-], function($, _, Backbone, BaseView) {
+], function(BaseView) {
 
   'use strict';
 
