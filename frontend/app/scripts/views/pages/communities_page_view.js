@@ -15,7 +15,7 @@ define([
     template: _.template(
       '<img class="logo" src="img/logo.png" />' +
       '<p>En Panamá existen varias comunidades de entusiastas ' +
-      'de carros clásicos. ¡Únete a ellas y conoce más personas ' +
+      'de carros clásicos y deportivos. ¡Únete a ellas y conoce más personas ' +
       'que compartan tus gustos y pasiones!</p>'
     ),
 
