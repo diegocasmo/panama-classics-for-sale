@@ -11,7 +11,7 @@ define([
     className: 'about-show',
 
     template: _.template(
-      '<p>Panamá Clásicos es una aplicación sin fines de lucro ' +
+      '<p class="about-show-message">Panamá Clásicos es una aplicación sin fines de lucro ' +
       'dedicada a las personas amantes de los carros clásicos. ' +
       'El objetivo de Panamá Clásicos es poder brindar un espacio ' +
       'en dónde se pueda encontrar con facilidad oportunidades de ' +
