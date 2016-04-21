@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Panamá",
+    "slug": "panama",
+    "currencySign": "$",
+    "apiDomainExt": "com.pa",
+    "apiSlug": "panama-es"
+  },
+  {
+    "name": "Costa Rica",
+    "slug": "costa-rica",
+    "currencySign": "₡",
+    "apiDomainExt": "co.cr",
+    "apiSlug": "costa-rica-es"
+  },
+  {
+    "name": "El Salvador",
+    "slug": "el-salvador",
+    "currencySign": "$",
+    "apiDomainExt": "com.sv",
+    "apiSlug": "el-salvador-es"
+  },
+  {
+    "name": "Nicaragua",
+    "slug": "nicaragua",
+    "currencySign": "$",
+    "apiDomainExt": "com.ni",
+    "apiSlug": "nicaragua-es"
+  }
+]

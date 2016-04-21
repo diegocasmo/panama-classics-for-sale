@@ -1,0 +1,33 @@
+.country-index {
+  list-style: none;
+  max-width: 520px;
+  margin: 0px auto;
+  text-align: center;
+}
+
+.country-show {
+  @include _inline-block;
+}
+
+.country-link {
+  @include _border-radius(4px);
+  display: block;
+  padding: 10px;
+  background: $light_red;
+  color: $lighter_gray;
+  margin: 0px 10px 10px 0px;
+  max-width: 150px;
+  text-align: center;
+  &:hover, &:active, &:focus {
+    background: $light_red;
+    color: $lighter_gray;
+  }
+}
+
+.no-touch {
+  .country-link {
+    &:hover, &:active, &:focus {
+      color: $light_gray;
+    }
+  }
+}

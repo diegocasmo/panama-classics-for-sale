@@ -53,7 +53,14 @@
   }
 }
 
+
+.navigation-link.disabled {
+  background: $dark_gray;
+  cursor: not-allowed;
+}
+
 .no-touch {
+
   .navigation-item {
     @include _breakpoint(phablet) {
       &:hover, &:active, &:focus {
@@ -64,9 +71,16 @@
       }
     }
   }
+
   .navigation-link {
     &:hover, &:active, &:focus {
       color: $light_gray;
+    }
+  }
+
+  .navigation-link.disabled {
+    &:hover, &:active, &:focus {
+      color: $lighter_gray;
     }
   }
 }

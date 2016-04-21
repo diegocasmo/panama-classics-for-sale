@@ -2,10 +2,12 @@
 /*global define*/
 define([
   'views/base_view',
+  'models/app_state',
   'views/car/car_show',
   'views/shared/message_view',
   'services/list_paginator'
-], function(BaseView, CarShow, MessageView, ListPaginator) {
+], function(BaseView, AppState, CarShow,
+  MessageView, ListPaginator) {
 
   'use strict';
 
@@ -17,7 +19,7 @@ define([
       '<ul class="car-index-list"></ul>' +
       '<div id="loading-wrapper">' +
         '<div class="loading-icon"></div>' +
-        '<p class="car-index-searching">Buscando carros clásicos en Panamá...</p>' +
+        '<p class="car-index-searching">Buscando carros clásicos en <%= countryName %>...</p>' +
       '</div>' +
       '<div id="message-view"></div>'
     ),
@@ -35,29 +37,34 @@ define([
     },
 
     render: function() {
-      this.$el.html(this.template());
+      var context = {
+        'countryName': AppState.get().country().name
+      };
+      this.$el.html(this.template(context));
       return this;
     },
 
     bindCarsEvents: function() {
       var that = this;
-      this.cars.on('sync search:done search:clear', _.bind(this.setUpPaginatedList, this));
-      this.cars.on('error', function() {
-        that.renderMessage('¡Huh :(! Ha ocurrido un problema. Vuelve a intentarlo más tarde.');
-      });
-      this.cars.on('search:empty', function() {
-        that.renderMessage('La búsqueda no ha coincidido con ningún resultado.');
+      this.listenTo(this.cars, 'sync search:done search:clear',
+        _.bind(this.setUpPaginatedList, this));
+      this.listenTo(this.cars, 'error', function() {
+        that.renderMessage('¡Huh :(! Ha ocurrido un error. Vuelve a intentarlo más tarde.');
       });
     },
 
     setUpPaginatedList: function(collection) {
       var list = collection.map(function(m) { return m.attributes; });
-      this.paginatedCars = new ListPaginator(list);
-      this.removeCarsIndexList();
-      this.hideLoadingIndicator();
-      this.$el.find('#message-view').empty();
-      this.renderCarIndexList(this.paginatedCars.getFirstPage());
-      $(window).on('scroll', _.bind(this.loadMore, this));
+      if (list.length > 0) {
+        this.paginatedCars = new ListPaginator(list);
+        this.removeCarsIndexList();
+        this.hideLoadingIndicator();
+        this.$el.find('#message-view').empty();
+        this.renderCarIndexList(this.paginatedCars.getFirstPage());
+        $(window).on('scroll', _.bind(this.loadMore, this));
+      } else {
+        this.renderMessage('No se ha encontrado ningún carro clásico.');
+      }
     },
 
     renderCarIndexList: function(cars) {

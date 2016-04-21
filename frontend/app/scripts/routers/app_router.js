@@ -2,33 +2,43 @@
 /*global define*/
 define([
   'backbone',
+  'models/app_state',
+  'views/pages/countries_page_view',
   'views/pages/cars_page_view',
   'views/pages/communities_page_view',
-  'views/pages/about_page_view'
-], function(Backbone, CarsPageView, CommunitiesPageView, AboutPageView) {
+  'views/pages/about_page_view',
+  'backbone-route-filter'
+], function(Backbone, AppState, CountriesPageView, CarsPageView,
+  CommunitiesPageView, AboutPageView) {
 
   'use strict';
 
   var AppRouter = Backbone.Router.extend({
 
+    routes: {
+      'paises'                  : 'showCountries',
+      'carros/:countrySlug'     : 'showCars',
+      'nosotros'                : 'showAbout',
+      'comunidades/:countrySlug': 'showCommunities',
+      '*actions'                : 'showCountries'
+    },
+
+    before: {
+      'carros/:countrySlug'     : 'setCurrentCountry',
+      'comunidades/:countrySlug': 'setCurrentCountry'
+    },
+
     initialize: function(options) {
       this.appView     = options.appView;
       this.cars        = options.cars;
       this.communities = options.communities;
+      this.countries   = options.countries;
     },
 
-    startApplication: function() {
-      Backbone.history.start({
-        pushState: false,
-        root: '/'
-      });
-    },
-
-    routes: {
-      'carros'     : 'showCars',
-      'nosotros'   : 'showAbout',
-      'comunidades': 'showCommunities',
-      '*actions'   : 'showCars'
+    showCountries: function() {
+      this.appView.showView(new CountriesPageView({
+        'countries': this.countries
+      }));
     },
 
     showCars: function() {
@@ -45,6 +55,18 @@ define([
       this.appView.showView(new CommunitiesPageView({
         'communities': this.communities
       }));
+    },
+
+    // Helper methods
+    setCurrentCountry: function(fragment, args, next) {
+      var countrySlug = _.first(args),
+          country = this.countries.findWhere({ 'slug': countrySlug });
+      if(country) {
+        AppState.get().setCountry(country);
+        next();
+      } else {
+        this.navigate('paises', { trigger: true });
+      }
     }
 
   });

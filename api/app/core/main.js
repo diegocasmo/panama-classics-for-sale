@@ -3,6 +3,12 @@ var restify   = require('restify'),
     namespace = require('restify-namespace'),
     api       = restify.createServer();
 
+api
+  .use(restify.fullResponse())
+  .use(restify.bodyParser())
+  .use(restify.queryParser())
+  .use(restify.CORS());
+
 // Setup CORS
 api.use(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

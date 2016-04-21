@@ -14,7 +14,7 @@ define([
     tagName: 'form',
 
     template: _.template(
-      '<input autofocus class="search-form-input" placeholder="<%= placeholder %>">' +
+      '<input class="search-form-input" placeholder="<%= placeholder %>">' +
       '<i class="search-form-clear fa fa-times"></i>'
     ),
 
