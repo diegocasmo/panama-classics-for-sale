@@ -9,9 +9,10 @@ var restify         = require('restify'),
 
 // Return all parsed items from the desired sites
 exports.get = function(req, res, next) {
+  var params = _.pick(req.params, 'countrySlug', 'domainExt');
   Promise.all([
-      encuentraParser.get(encuentraConfig.carsParseUrl()),
-      olxParser.get(olxConfig.carsParseUrl())
+      encuentraParser.get(encuentraConfig.carsParseUrl(params.countrySlug)),
+      olxParser.get(olxConfig.carsParseUrl(params.domainExt))
     ])
     .then(function(values) {
       res.json(_.flatten(values));

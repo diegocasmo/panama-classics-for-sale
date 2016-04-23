@@ -2,10 +2,12 @@
 /*global define*/
 define([
   'views/base_page',
+  'models/app_state',
   'views/car/car_index',
   'views/shared/navigation_view',
   'views/shared/search_form_view'
-], function(BasePage, CarIndex, NavigationView, SearchFormView) {
+], function(BasePage, AppState, CarIndex, NavigationView,
+  SearchFormView) {
 
   'use strict';
 
@@ -13,8 +15,15 @@ define([
 
     className: 'cars-page',
 
+    context: function() {
+      return {
+        'countryName': AppState.get().country().name
+      };
+    },
+
     template: _.template(
-      '<img class="logo" src="img/logo.png" />'
+      '<img class="logo" src="img/logo.png" />' +
+      '<p>Mostrando resultados para: <%= countryName %>.<p>'
     ),
 
     getViewsToRender: function() {

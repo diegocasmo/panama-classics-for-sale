@@ -2,8 +2,10 @@
 /*global define*/
 define([
   'views/base_view',
-  'views/community/community_show'
-], function(BaseView, CommunityShow) {
+  'models/app_state',
+  'views/community/community_show',
+  'views/shared/message_view'
+], function(BaseView, AppState, CommunityShow, MessageView) {
 
   'use strict';
 
@@ -15,19 +17,39 @@ define([
 
     initialize: function(options) {
       this.communities = options.communities;
+      this.bindCommunitiesEvents();
+      this.communities.fetch();
     },
 
-    render: function() {
+    bindCommunitiesEvents: function() {
       var that = this;
-      var communityIndex = this.communities.map(function(community) {
-        var communityShow = new CommunityShow({
-          'community': community.toJSON()
-        });
-        that.subViews.push(communityShow);
-        return communityShow.render().el;
+      this.listenTo(this.communities, 'sync', _.bind(this.renderCommunities, this));
+      this.listenTo(this.communities, 'error', function() {
+        that.renderMessage('No hemos podido cargar las comunidades de: ' + AppState.get().country().name + '.');
       });
-      this.$el.append(communityIndex);
-      return this;
+    },
+
+    renderCommunities: function() {
+      var that = this,
+          communities = this.communities.where({ 'countrySlug' : AppState.get().country().slug });
+      if(_.isEmpty(communities)) {
+        this.renderMessage('No hay comunidades de ' + AppState.get().country().name + '.');
+      } else {
+        var communityIndex = communities.map(function(community) {
+          var communityShow = new CommunityShow({
+            'community': community.toJSON()
+          });
+          that.subViews.push(communityShow);
+          return communityShow.render().el;
+        });
+        this.$el.append(communityIndex);
+      }
+    },
+
+    renderMessage: function(msg) {
+      var messageView = new MessageView({ message: msg });
+      this.subViews.push(messageView);
+      this.$el.append(messageView.render().el);
     }
 
   });

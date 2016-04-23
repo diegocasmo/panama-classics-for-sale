@@ -10,6 +10,7 @@
     "requirejs-text": "~2.0.10",
     "modernizr": "~2.7.1",
     "foundation": "#5.4.3",
-    "font-awesome": "4.3.0"
+    "font-awesome": "4.3.0",
+    "backbone-route-filter": "^0.1.2"
   }
 }

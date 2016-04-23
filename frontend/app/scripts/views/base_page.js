@@ -9,9 +9,12 @@ define([
 
   var BasePage = BaseView.extend({
 
+    // Context variables to be used in page template
+    context: function() {},
+
     render: function() {
       var that = this;
-      this.$el.html(this.template());
+      this.$el.html(this.template(this.context()));
       _.each(this.getViewsToRender(), function(view) {
         that.subViews.push(view);
         that.$el.append(view.render().el);

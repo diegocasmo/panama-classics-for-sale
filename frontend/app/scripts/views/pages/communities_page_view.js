@@ -2,9 +2,12 @@
 /*global define*/
 define([
   'views/base_page',
+  'models/app_state',
   'views/shared/navigation_view',
-  'views/community/community_index'
-], function(BasePage, NavigationView, CommunityIndex) {
+  'views/community/community_index',
+  'views/community/community_info'
+], function(BasePage, AppState, NavigationView,
+  CommunityIndex, CommunityInfo) {
 
   'use strict';
 
@@ -12,9 +15,15 @@ define([
 
     className: 'communities-page',
 
+    context: function() {
+      return {
+        'countryName': AppState.get().country().name
+      };
+    },
+
     template: _.template(
       '<img class="logo" src="img/logo.png" />' +
-      '<p>En Panamá existen varias comunidades de entusiastas ' +
+      '<p>En <%= countryName %> existen varias comunidades de entusiastas ' +
       'de carros clásicos y deportivos. ¡Únete a ellas y conoce más personas ' +
       'que compartan tus gustos y pasiones!</p>'
     ),
@@ -22,7 +31,8 @@ define([
     getViewsToRender: function() {
       return [
         new NavigationView(),
-        new CommunityIndex({ 'communities': this.communities })
+        new CommunityIndex({ 'communities': this.communities }),
+        new CommunityInfo()
       ];
     },
 

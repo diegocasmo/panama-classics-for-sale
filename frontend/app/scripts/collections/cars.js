@@ -1,12 +1,12 @@
 // Represents a collection of cars
 /*global define*/
 define([
-  'jquery',
   'underscore',
   'backbone',
+  'models/app_state',
   'models/car',
   'services/search_in_list'
-], function($, _, Backbone, Car, SearchInList) {
+], function(_, Backbone, AppState, Car, SearchInList) {
 
   'use strict';
 
@@ -14,7 +14,12 @@ define([
 
     model: Car,
 
-    url: 'http://api-clasicos.rhcloud.com/api/v1/cars',
+    url: function() {
+      var country = AppState.get().country(),
+          queryString = '?countrySlug=' + country.apiSlug +
+          '&domainExt=' + country.apiDomainExt;
+      return 'http://api-clasicos.rhcloud.com/api/v1/cars' + queryString;
+    },
 
     // Order by descending created at
     comparator: function(a, b) {
@@ -22,7 +27,7 @@ define([
     },
 
     // Include company seller logo location
-    parse: function(items){
+    parse: function(items) {
       return _.each(items, function(item) {
         item.companyLogo = 'img/' + item.app + '.png';
       });
@@ -31,14 +36,10 @@ define([
     // Search models in collection according to query
     doSearch: function(query) {
       if (query && query.length > 0) {
-        var list = this.map(function(m) { return m.searchJSON; }),
+        var that = this,
+            list = this.map(function(m) { return m.searchJSON; }),
             results = SearchInList.search(list, query);
-        if (results.length > 0) {
-          var that = this;
-          this.trigger('search:done', _.map(results, function(r) { return that.get(r); }));
-        } else {
-          this.trigger('search:empty', this);
-        }
+        this.trigger('search:done', _.map(results, function(r) { return that.get(r); }));
       } else {
         this.clearSearch();
       }
