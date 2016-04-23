@@ -13,7 +13,7 @@ define([
 
     comparator: 'name',
 
-    url: 'scripts/config/communities.json'
+    url: '/config/communities.json'
 
   });
 

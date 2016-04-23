@@ -13,7 +13,7 @@ define([
 
     comparator: 'name',
 
-    url: 'scripts/config/countries.json'
+    url: '/config/countries.json'
 
   });
 

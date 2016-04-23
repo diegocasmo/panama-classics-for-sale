@@ -123,7 +123,8 @@ module.exports = function (grunt) {
                         'jquery': '../../<%= yeoman.app %>/bower_components/jquery/dist/jquery',
                         'underscore': '../../<%= yeoman.app %>/bower_components/underscore/underscore',
                         'backbone': '../../<%= yeoman.app %>/bower_components/backbone/backbone',
-                        'foundation': '../../<%= yeoman.app %>/bower_components/foundation/js/foundation.min'
+                        'foundation': '../../<%= yeoman.app %>/bower_components/foundation/js/foundation.min',
+                        'backbone-route-filter': '../../<%= yeoman.app %>/bower_components/backbone-route-filter/backbone-route-filter'
                     },
                     preserveLicenseComments: false,
                     useStrict: true,
@@ -189,6 +190,7 @@ module.exports = function (grunt) {
                         '**/*.{ico,txt}',
                         '**/*.htaccess',
                         'img/**/*',
+                        'config/**/*',
                         'styles/fonts/**/*',
                         'bower_components/font-awesome/fonts/**/*'
                     ]
