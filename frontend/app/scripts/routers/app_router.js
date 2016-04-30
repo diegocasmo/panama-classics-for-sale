@@ -1,15 +1,9 @@
-// Match routes to specific application actions
+// Match routes to specific app view methods
 /*global define*/
 define([
   'backbone',
-  'models/app_state',
-  'views/pages/countries_page_view',
-  'views/pages/cars_page_view',
-  'views/pages/communities_page_view',
-  'views/pages/about_page_view',
   'backbone-route-filter'
-], function(Backbone, AppState, CountriesPageView, CarsPageView,
-  CommunitiesPageView, AboutPageView) {
+], function(Backbone) {
 
   'use strict';
 
@@ -30,39 +24,28 @@ define([
 
     initialize: function(options) {
       this.appView     = options.appView;
-      this.cars        = options.cars;
-      this.communities = options.communities;
-      this.countries   = options.countries;
     },
 
     showCountries: function() {
-      this.appView.showView(new CountriesPageView({
-        'countries': this.countries
-      }));
+      this.appView.showCountriesPage();
     },
 
     showCars: function() {
-      this.appView.showView(new CarsPageView({
-        'cars': this.cars
-      }));
+      this.appView.showCarsPage();
     },
 
     showAbout: function() {
-      this.appView.showView(new AboutPageView());
+      this.appView.showAboutPage();
     },
 
     showCommunities: function() {
-      this.appView.showView(new CommunitiesPageView({
-        'communities': this.communities
-      }));
+      this.appView.showCommunitiesPage();
     },
 
     // Helper methods
     setCurrentCountry: function(fragment, args, next) {
-      var countrySlug = _.first(args),
-          country = this.countries.findWhere({ 'slug': countrySlug });
-      if(country) {
-        AppState.get().setCountry(country);
+      var countrySlug = _.first(args);
+      if(this.appView.setAsCurrentCountry(countrySlug)) {
         next();
       } else {
         this.navigate('paises', { trigger: true });

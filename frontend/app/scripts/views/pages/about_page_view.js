@@ -2,9 +2,10 @@
 /*global define*/
 define([
   'views/base_page',
+  'views/shared/logo_show',
   'views/shared/navigation_view',
-  'views/about/about_show'
-], function(BasePage, NavigationView, AboutShow) {
+  'views/about/about_info'
+], function(BasePage, LogoShow, NavigationView, AboutInfo) {
 
   'use strict';
 
@@ -12,14 +13,11 @@ define([
 
     className: 'about-page',
 
-    template: _.template(
-      '<img class="logo" src="img/logo.png" />'
-    ),
-
     getViewsToRender: function() {
       return [
+        new LogoShow(),
         new NavigationView(),
-        new AboutShow()
+        new AboutInfo()
       ];
     }
 

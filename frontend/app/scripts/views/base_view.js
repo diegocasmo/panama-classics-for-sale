@@ -11,12 +11,20 @@ define([
 
   var BaseView = Backbone.View.extend({
 
-    subViews: [],
+    constructor: function(options) {
+      this.subViews = [];
+      Backbone.View.apply(this, [options]);
+    },
 
-    _removeChildViews: function() {
-      _.each(this.subViews, function(childView) {
-        childView.remove();
+    removeChildViews: function() {
+      _.each(this.subViews, function(v) {
+        if (typeof v.removeChildViews === 'function') {
+          v.removeChildViews();
+        } else {
+          v.remove();
+        }
       });
+      this.subViews = [];
       this.remove();
     },
 
