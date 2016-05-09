@@ -3,11 +3,13 @@
 define([
   'views/base_page',
   'models/app_state',
-  'views/car/car_index',
+  'views/shared/logo_show',
   'views/shared/navigation_view',
+  'views/shared/message_view',
+  'views/car/car_index',
   'views/shared/search_form_view'
-], function(BasePage, AppState, CarIndex, NavigationView,
-  SearchFormView) {
+], function(BasePage, AppState, LogoShow, NavigationView,
+    MessageView, CarIndex, SearchFormView) {
 
   'use strict';
 
@@ -15,20 +17,12 @@ define([
 
     className: 'cars-page',
 
-    context: function() {
-      return {
-        'countryName': AppState.get().country().name
-      };
-    },
-
-    template: _.template(
-      '<img class="logo" src="img/logo.png" />' +
-      '<p>Mostrando resultados para: <%= countryName %>.<p>'
-    ),
-
     getViewsToRender: function() {
       return [
+        new LogoShow(),
         new NavigationView(),
+        new MessageView({ message: 'Mostrando resultados para: ' +
+          AppState.get().country().name + '.' }),
         new SearchFormView({
           'collection': this.cars,
           'placeholder': 'Busca un carro...'

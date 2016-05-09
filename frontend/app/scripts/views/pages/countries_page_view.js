@@ -2,9 +2,12 @@
 /*global define*/
 define([
   'views/base_page',
-  'views/country/country_index',
-  'views/shared/navigation_view'
-], function(BasePage, CountryIndex, NavigationView) {
+  'views/shared/logo_show',
+  'views/shared/navigation_view',
+  'views/shared/message_view',
+  'views/country/country_index'
+], function(BasePage, LogoShow, NavigationView,
+  MessageView, CountryIndex) {
 
   'use strict';
 
@@ -12,15 +15,12 @@ define([
 
     className: 'countries-page',
 
-    template: _.template(
-      '<img class="logo" src="img/logo.png" />' +
-      '<p>Por favor, selecciona un país para ' +
-      'busar carros clásicos:</p>'
-    ),
-
     getViewsToRender: function() {
       return [
+        new LogoShow(),
         new NavigationView(),
+        new MessageView({ message: 'Por favor, selecciona un país ' +
+          'para busar carros clásicos:' }),
         new CountryIndex({ 'countries': this.countries })
       ];
     },

@@ -1,4 +1,4 @@
-// Renders about message
+// Renders about info message
 /*global define*/
 define([
   'views/base_view'
@@ -6,12 +6,12 @@ define([
 
   'use strict';
 
-  var AboutShow = BaseView.extend({
+  var AboutInfo = BaseView.extend({
 
-    className: 'about-show',
+    className: 'about-info',
 
     template: _.template(
-      '<p class="about-show-message">Panamá Clásicos es una aplicación sin fines de lucro ' +
+      '<p class="about-info-message">Panamá Clásicos es una aplicación sin fines de lucro ' +
       'dedicada a las personas amantes de los carros clásicos. ' +
       'El objetivo de Panamá Clásicos es poder brindar un espacio ' +
       'en dónde se pueda encontrar con facilidad oportunidades de ' +
@@ -28,6 +28,6 @@ define([
 
   });
 
-  return AboutShow;
+  return AboutInfo;
 
 });

@@ -15,10 +15,21 @@ define([
 
     className: 'community-index',
 
+    template: _.template(
+      '<div id="loading-wrapper">' +
+        '<div class="loading-icon"></div>' +
+      '</div>'
+    ),
+
     initialize: function(options) {
       this.communities = options.communities;
       this.bindCommunitiesEvents();
       this.communities.fetch();
+    },
+
+    render: function() {
+      this.$el.html(this.template());
+      return this;
     },
 
     bindCommunitiesEvents: function() {
@@ -42,14 +53,14 @@ define([
           that.subViews.push(communityShow);
           return communityShow.render().el;
         });
-        this.$el.append(communityIndex);
+        this.$el.html(communityIndex);
       }
     },
 
     renderMessage: function(msg) {
       var messageView = new MessageView({ message: msg });
       this.subViews.push(messageView);
-      this.$el.append(messageView.render().el);
+      this.$el.html(messageView.render().el);
     }
 
   });

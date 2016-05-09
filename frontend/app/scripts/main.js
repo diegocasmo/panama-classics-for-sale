@@ -43,29 +43,27 @@ require([
   $(document).foundation();
 
   var countries = new Countries();
-  countries.fetch();
 
-  // Start application after all countries have been fetch
-  countries.on('sync', function() {
-    var appRouter = new AppRouter({
-      'appView'    : new AppView(),
-      'countries'  : countries,
-      'cars'       : new Cars(),
-      'communities': new Communities()
+  $.when(countries.fetch())
+    .done(function() {
+      // Start application after all countries have been fetch
+      var appView = new AppView({
+        'countries'  : countries,
+        'cars'       : new Cars(),
+        'communities': new Communities()
+      });
+      var appRouter = new AppRouter({ 'appView': appView });
+      Backbone.history.start({ pushState: false, root: '/' });
+    })
+    .fail(function() {
+      // Show error message if there is an error on fetch
+      var getErrorTemplate = function() {
+        return _.template(
+        '<p>La aplicación está temporalmente fuera de línea por mantenimiento. ' +
+        'Por favor, vuelva a intentar en algunos minutos.</p>' +
+        '<button onclick="location.reload(true); return false;">Volver a intentar</button>'
+        );
+      };
+      $('#app-wrapper').html(getErrorTemplate());
     });
-    Backbone.history.start({ pushState: false, root: '/' });
-  });
-
-  // Show error message if there is an error while syncing
-  countries.on('error', function() {
-    var getErrorTemplate = function() {
-      return _.template(
-      '<p>La aplicación está temporalmente fuera de línea por mantenimiento. ' +
-      'Por favor, vuelva a intentar en algunos minutos.</p>' +
-      '<button onclick="location.reload(true); return false;">Volver a intentar</button>'
-      )
-    }
-    $('#app-wrapper').html(getErrorTemplate());
-  });
-
 });
