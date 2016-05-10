@@ -1,10 +1,6 @@
 // Represents a single car item
 /*global define*/
-define([
-  'jquery',
-  'underscore',
-  'backbone'
-], function($, _, Backbone) {
+define([ 'backbone' ], function(Backbone) {
 
   'use strict';
 
@@ -19,6 +15,12 @@ define([
         'searchString': this.get('title'),
         'cid': this.cid
       };
+    },
+
+    // Include company seller logo location
+    parse: function(response)  {
+      response.companyLogo = 'img/' + response.app + '.png';
+      return response;
     }
 
   });

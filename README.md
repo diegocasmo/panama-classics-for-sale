@@ -16,3 +16,7 @@ Panamá Clásicos
 - Run `npm install && bower install` to install dependencies
 - Run `grunt serve`
 - You can now access the frontend application at `http://localhost:9000/`
+- Running tests:
+    - `cd` into the `frontend/` directory
+    - Run `grunt serve:test`
+    - You can now access all tests at `http://localhost:9001/`

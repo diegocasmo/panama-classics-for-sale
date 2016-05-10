@@ -1,5 +1,5 @@
 {
-  "name": "beta",
+  "name": "panama-classics-for-sale",
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
@@ -23,7 +23,8 @@
     "load-grunt-tasks": "~0.3.0",
     "connect-livereload": "~0.3.2",
     "time-grunt": "~0.2.8",
-    "jshint-stylish": "~0.1.5"
+    "jshint-stylish": "~0.1.5",
+    "grunt-mocha": "^0.4.11"
   },
   "engines": {
     "node": ">=0.10.0"

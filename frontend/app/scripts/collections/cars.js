@@ -26,13 +26,6 @@ define([
       return new Date(b.get('createdAt')) - new Date(a.get('createdAt'));
     },
 
-    // Include company seller logo location
-    parse: function(items) {
-      return _.each(items, function(item) {
-        item.companyLogo = 'img/' + item.app + '.png';
-      });
-    },
-
     // Search models in collection according to query
     doSearch: function(query) {
       if (query && query.length > 0) {

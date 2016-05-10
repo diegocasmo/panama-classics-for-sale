@@ -1,5 +1,5 @@
 {
-  "name": "beta",
+  "name": "panama-classics-for-sale",
   "version": "0.0.0",
   "dependencies": {
     "sass-bootstrap": "~3.0.2",
@@ -12,5 +12,10 @@
     "foundation": "#5.4.3",
     "font-awesome": "4.3.0",
     "backbone-route-filter": "^0.1.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "sinonjs": "^1.17.1"
   }
 }
