@@ -1,5 +1,5 @@
 // Renders a single country
-/*global define*/
+/*global define, ga*/
 define([
   'views/base_view',
 ], function(BaseView) {
@@ -13,8 +13,12 @@ define([
     className: 'country-show',
 
     template: _.template(
-      '<a class="country-link" href="#carros/<%= slug %>"><%= name %></a>'
+      '<a data-ga="<%= slug %>" class="country-link" href="#carros/<%= slug %>"><%= name %></a>'
     ),
+
+    events: {
+      'click a': '_trackLinkClick'
+    },
 
     initialize: function(options) {
       this.country = options.country;
@@ -23,6 +27,13 @@ define([
     render: function() {
       this.$el.html(this.template(this.country));
       return this;
+    },
+
+    _trackLinkClick: function() {
+      var dataGa = this.$el.find('a').attr('data-ga');
+      if (typeof(dataGa) !== 'undefined') {
+        ga('send', 'event', 'link', 'click', dataGa);
+      }
     }
 
   });

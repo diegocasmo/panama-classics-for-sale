@@ -1,6 +1,6 @@
 // Renders an input form to be able to search
 // whitin a particular collection of items
-/*global define*/
+/*global define, ga*/
 define([
   'views/base_view'
 ], function(BaseView) {
@@ -34,12 +34,14 @@ define([
     },
 
     doSearch: function() {
+      ga('send', 'event', 'search', 'keyup', 'search triggered');
       event.preventDefault();
       var query = this.$el.find('.search-form-input').val().trim();
       this.collection.doSearch(query);
     },
 
     clearSearch: function(event) {
+      ga('send', 'event', 'search', 'click', 'search cleared');
       event.preventDefault();
       this.$el.find('.search-form-input').val('');
       this.collection.clearSearch();

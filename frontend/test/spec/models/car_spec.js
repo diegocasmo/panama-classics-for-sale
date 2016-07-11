@@ -34,7 +34,7 @@ define([
             'searchString': this.car.get('title'),
             'cid': this.car.cid
           };
-          this.car.cacheSearchString()
+          this.car.cacheSearchString();
           expect(this.car.searchJSON).to.eql(obj);
         });
 

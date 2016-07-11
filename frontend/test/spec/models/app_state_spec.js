@@ -1,4 +1,4 @@
-/*global define, beforeEach, afterEach, describe, it, sinon*/
+/*global define, beforeEach, afterEach, describe, it*/
 define([
   'models/app_state'
 ],function(AppState) {
@@ -18,7 +18,7 @@ define([
     describe('Initialization', function() {
 
       it('should have correct defaults', function() {
-        expect(this.appState.defaults['country']).to.eql({});
+        expect(this.appState.defaults.country).to.eql({});
       });
 
     });
