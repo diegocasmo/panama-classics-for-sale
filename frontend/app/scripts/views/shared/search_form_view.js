@@ -9,6 +9,9 @@ define([
 
   var SearchFormView = BaseView.extend({
 
+    // Wait Xms to trigger search
+    searchDelay: 650,
+
     className: 'search-form-view',
 
     tagName: 'form',
@@ -19,7 +22,7 @@ define([
     ),
 
     events: {
-      'keyup .search-form-input': 'doSearch',
+      'keyup .search-form-input': 'handleKeyUp',
       'click .search-form-clear': 'clearSearch'
     },
 
@@ -33,11 +36,18 @@ define([
       return this;
     },
 
-    doSearch: function() {
-      ga('send', 'event', 'search', 'keyup', 'search triggered');
+    handleKeyUp: function(event) {
       event.preventDefault();
       var query = this.$el.find('.search-form-input').val().trim();
-      this.collection.doSearch(query);
+      this.bufferQuerySearch(query);
+    },
+
+    bufferQuerySearch: function(query) {
+      clearTimeout(this.inputTimeout);
+      this.inputTimeout = setTimeout((function(_this) {
+        _this.collection.doSearch(query);
+        ga('send', 'event', 'search', 'keyup', query);
+      })(this), this.searchDelay);
     },
 
     clearSearch: function(event) {
