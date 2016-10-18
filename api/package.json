@@ -2,11 +2,11 @@
   "name": "api-clasicos",
   "version": "0.0.1",
   "dependencies": {
-    "cheerio": "latest",
-    "lodash": "~3.10.0",
-    "moment": "^2.11.1",
+    "cheerio": "^0.22.0",
+    "lodash": "^3.10.1",
+    "moment": "^2.15.1",
     "promise": "^7.1.1",
-    "request": "^2.67.0",
+    "request": "^2.75.0",
     "restify": "latest",
     "restify-namespace": "~0.1.1"
   },

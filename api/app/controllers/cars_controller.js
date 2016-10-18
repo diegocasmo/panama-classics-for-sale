@@ -14,10 +14,6 @@ exports.get = function(req, res, next) {
       encuentraParser.get(encuentraConfig.carsParseUrl(params.countrySlug)),
       olxParser.get(olxConfig.carsParseUrl(params.domainExt))
     ])
-    .then(function(values) {
-      res.json(_.flatten(values));
-    })
-    .catch(function(err) {
-      next(new restify.InvalidArgumentError('Invalid Request'));
-    });
+    .then(function(values) { res.json(_.flatten(values)) })
+    .catch(function() { next(new restify.InvalidArgumentError('Invalid Request')) });
 }

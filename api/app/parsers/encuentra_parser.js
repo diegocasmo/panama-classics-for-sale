@@ -32,15 +32,15 @@ function parseResponse(html) {
                   sold     : ($item.css('opacity')) ? true : false,
                   image    : $item.find('.lazy').attr('data-original') ? ($item.find('.lazy').attr('data-original')).replace('/small','') : null,
                   link     : encuentraConfig.baseUrl() + $item.find('.ann-box-title').attr('href'),
-                  createdAt: convertCreatedAtTextToTimestamp(_.trim($item.find('.ann-box-hilight-time > span.value').text())),
+                  createdAt: transformCreatedAtTextToTimestamp(_.trim($item.find('.ann-box-hilight-time > span.value').text())),
                   app      : encuentraConfig.app()
                 };
             return standardizer.do(options);
           }).get();
 }
 
-// Convert created at text to timestamp
-function convertCreatedAtTextToTimestamp(createdAtText) {
+// Transform created at text to timestamp
+function transformCreatedAtTextToTimestamp(createdAtText) {
   var regexTransform = {
         '^Hace ([0-9]+) día$'  : 'day',
         '^Hace ([0-9]+) días$' : 'days',

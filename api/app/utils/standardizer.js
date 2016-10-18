@@ -1,5 +1,4 @@
-// Standardize response sent to client application
-// for any parsed endpoint
+// Standardize response sent to client application for any parsed endpoint
 var _ = require('lodash');
 
 exports.do = function(options) {
