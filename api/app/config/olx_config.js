@@ -4,7 +4,7 @@ exports.baseUrl = function() {
 }
 
 exports.carsParseUrl = function(domainExt) {
-  return 'http://www.olx.com.' + domainExt + '/nf/autos-cat-378/-year__1980';
+  return 'http://www.olx.' + domainExt + '/nf/autos-cat-378/-year__1980';
 }
 
 exports.app = function() {
