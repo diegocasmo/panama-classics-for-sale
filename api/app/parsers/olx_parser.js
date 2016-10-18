@@ -27,7 +27,7 @@ function parseResponse(html) {
             var $item = $(this),
                 options = {
                   title    : $item.find('.title').text(),
-                  price    : (_.trim($item.find('.price').text())).replace('B/.', ''),
+                  price    : _.trim($item.find('.price').text()).replace('B/.', ''),
                   sold     : false,
                   image    : $item.find('.image').attr('data-fullimg'),
                   link     : _.trim($item.find('a').attr('href')).replace('//', ''),
