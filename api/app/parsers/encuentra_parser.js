@@ -8,9 +8,9 @@ var Promise         = require('promise'),
     encuentraConfig = require('../config/encuentra_config');
 
 // Return all 'Encuentra24' parsed items from the desired URL
-exports.get = function(parseUrl) {
+exports.get = function(url) {
   return new Promise(function (resolve, reject) {
-    request(parseUrl, function(error, response, html) {
+    request(url, function(error, response, html) {
       if(error)  {
         reject(error);
       } else {

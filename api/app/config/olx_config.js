@@ -4,7 +4,7 @@ exports.baseUrl = function() {
 }
 
 exports.carsParseUrl = function(domainExt) {
-  return 'http://api-v2.olx.com/items?pageSize=50&location=www.olx.' + domainExt + '&offset=0&categoryId=378&abundance=true&seo=true&languageId=10&f.year=TO1975';
+  return 'http://www.olx.com.' + domainExt + '/nf/autos-cat-378/-year__1980';
 }
 
 exports.app = function() {
