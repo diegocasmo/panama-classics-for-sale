@@ -1,8 +1,6 @@
 // Parse response from 'OLX'
 var Promise      = require('promise'),
     request      = require('request'),
-    cheerio      = require('cheerio'),
-    _            = require('lodash'),
     standardizer = require('../utils/standardizer'),
     olxConfig    = require('../config/olx_config');
 
@@ -13,27 +11,25 @@ exports.get = function(url) {
       if(error) {
         reject(error);
       } else {
-        resolve(parseResponse(html));
+        resolve(parseResponse(response));
       }
     });
   });
 }
 
 // Parser for 'OLX' response
-function parseResponse(html) {
-  var $ = cheerio.load(html),
-      $list = $('.item-listing').children();
-  return $list.map(function() {
-            var $item = $(this),
-                options = {
-                  title    : $item.find('.title').text(),
-                  price    : _.trim($item.find('.price').text()).replace('B/.', ''),
-                  sold     : false,
-                  image    : $item.find('.image').attr('data-fullimg'),
-                  link     : _.trim($item.find('a').attr('href')).replace('//', ''),
-                  createdAt: null,
-                  app      : olxConfig.app()
-                };
-            return standardizer.do(options);
-          }).get();
+function parseResponse(response) {
+  var list = JSON.parse(response.body).data;
+  return list.map(function(item) {
+          var options = {
+            title     : item.title,
+            price     : item.price ? item.price.amount : false,
+            sold      : item.sold,
+            image     : item.fullImage,
+            link      : item.slug,
+            createdAt : item.date ? item.date.timestamp : false,
+            app       : olxConfig.app()
+          };
+          return standardizer.do(options);
+        });
 }
