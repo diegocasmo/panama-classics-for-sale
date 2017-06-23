@@ -26,5 +26,12 @@
     "currencySign": "$",
     "apiDomainExt": "com.ni",
     "apiSlug": "nicaragua-es"
+  },
+  {
+    "name": "Guatemala",
+    "slug": "guatemala",
+    "currencySign": "GTQ",
+    "apiDomainExt": "com.gt",
+    "apiSlug": ""
   }
 ]

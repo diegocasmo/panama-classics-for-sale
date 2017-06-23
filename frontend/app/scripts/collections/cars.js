@@ -15,9 +15,10 @@ define([
     model: Car,
 
     url: function() {
-      var country = AppState.get().country(),
-          queryString = '?countrySlug=' + country.apiSlug +
-          '&domainExt=' + country.apiDomainExt;
+      var country = AppState.get().country();
+      var countrySlug = country.apiSlug ? 'countrySlug=' + country.apiSlug : '';
+      var domainExt = country.apiDomainExt ? 'domainExt=' + country.apiDomainExt : '';
+      var queryString = '?' + countrySlug + '&' + domainExt;
       return 'http://api-clasicos.rhcloud.com/api/v1/cars' + queryString;
     },
 

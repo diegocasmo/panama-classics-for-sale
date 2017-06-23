@@ -24,13 +24,29 @@ define([
       });
 
       it('should point to correct url', function() {
-        sinon.stub(AppState.get(), 'country').returns({
+        var stub = sinon.stub(AppState.get(), 'country').returns({
           apiSlug: 'foo1',
           apiDomainExt: 'foo2'
         });
         expect(this.cars.url()).to.equal('http://api-clasicos.rhcloud.com/api/v1/cars?countrySlug=foo1&domainExt=foo2');
+        stub.restore()
       });
 
+      it("should allow for optional 'slug'", function () {
+        var stub = sinon.stub(AppState.get(), 'country').returns({
+          apiDomainExt: 'foo2'
+        });
+        expect(this.cars.url()).to.equal('http://api-clasicos.rhcloud.com/api/v1/cars?&domainExt=foo2');
+        stub.restore()
+      });
+
+      it("should allow for optional url 'domain ext'", function() {
+        var stub = sinon.stub(AppState.get(), 'country').returns({
+          apiSlug: 'foo1'
+        });
+        expect(this.cars.url()).to.equal('http://api-clasicos.rhcloud.com/api/v1/cars?countrySlug=foo1&');
+        stub.restore()
+      });
     });
 
     describe('Methods', function() {
