@@ -11,8 +11,8 @@ var restify         = require('restify'),
 exports.get = function(req, res, next) {
   var params = _.pick(req.params, 'countrySlug', 'domainExt');
   Promise.all([
-      encuentraParser.get(encuentraConfig.carsParseUrl(params.countrySlug)),
-      olxParser.get(olxConfig.carsParseUrl(params.domainExt))
+      params.countrySlug ? encuentraParser.get(encuentraConfig.carsParseUrl(params.countrySlug)) : [],
+      params.domainExt ? olxParser.get(olxConfig.carsParseUrl(params.domainExt)) : []
     ])
     .then(function(values) { res.json(_.flatten(values)) })
     .catch(function() { next(new restify.InvalidArgumentError('Invalid Request')) });
