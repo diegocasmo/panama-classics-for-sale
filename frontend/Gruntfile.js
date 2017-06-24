@@ -169,16 +169,6 @@ module.exports = function (grunt) {
       css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
       options: { dirs: ['<%= yeoman.dist %>'] }
     },
-    imagemin: {
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '<%= yeoman.app %>/img',
-          src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yeoman.dist %>/img'
-        }]
-      }
-    },
     cssmin: {
       dist: {
         files: {
@@ -267,7 +257,6 @@ module.exports = function (grunt) {
     'compass:dist',
     'useminPrepare',
     'requirejs',
-    'imagemin',
     'concat',
     'cssmin',
     'uglify',

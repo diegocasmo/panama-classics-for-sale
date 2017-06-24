@@ -19,8 +19,8 @@ define([
       return [
         new LogoShow(),
         new NavigationView(),
-        new CommunityIndex({ 'communities': this.communities }),
-        new CommunityInfo()
+        new CommunityInfo(),
+        new CommunityIndex({ 'communities': this.communities })
       ];
     },
 
