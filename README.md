@@ -1,7 +1,7 @@
 Panamá Clásicos
 =================
 
-["Panamá Clásicos"](http://panama-clasicos.rhcloud.com/) is a simple WEB scrapper useful for searching classic cars for sale in different countries.
+["Panamá Clásicos"](http://panama-clasicos.rhcloud.com/) is a simple WEB scraper useful for searching classic cars for sale in different countries.
 
 # Installation
 
